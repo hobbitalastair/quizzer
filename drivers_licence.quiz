@@ -1,0 +1,53 @@
+# Drivers licence test quiz
+#
+# Designed for my quizzer project
+# 
+# Author: Alastair Hughes
+# Contact: <hobbitalastair@gmail.com>
+# Date: 12-6-2014
+
+#
+# Flashing lights
+#
+
+What vehicles use flashing red and optionally blue lights?: 1
+    1: Ambulances, fire engines, or police cars
+    2: Service vehicles
+    3: Customs, fisheries, or marine reserve vehicles
+    4: Midwives, doctors, or nurses
+
+What vehicles use flashing orange lights?: 2
+    1: Ambulances, fire engines, or police cars
+    2: Service vehicles
+    3: Customs, fisheries, or marine reserve vehicles
+    4: Midwives, doctors, or nurses
+
+What vehicles use flashing blue lights?: 3
+    1: Ambulances, fire engines, or police cars
+    2: Service vehicles
+    3: Customs, fisheries, or marine reserve vehicles
+    4: Midwives, doctors, or nurses
+
+What vehicles use flashing green lights?: 4
+    1: Ambulances, fire engines, or police cars
+    2: Service vehicles
+    3: Customs, fisheries, or marine reserve vehicles
+    4: Midwives, doctors, or nurses
+
+What do flashing red lights outside an airport or a firestation mean?: 0
+    0: Stop, and stay stopped
+    1: Stop, then continue cautiously
+    2: Continue cautiously
+
+
+#
+# Police officers
+#
+
+What do police officers directing traffic overrule?: 4
+    0: Road signs
+    1: Traffic signals
+    2: Give way rules
+    3: Road signs and traffic signals
+    4: Road signs, traffic signals, and give way rules
+
