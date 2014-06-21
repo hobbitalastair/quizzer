@@ -44,6 +44,11 @@
     Moved to a state based system for the CLI UI to allow universal event based
     programming
 
+    21-6-2014
+
+    Adjusted so that the Tk UI works, and moved some of the UI specific stuff
+    into properties
+
 """
 
 VERSION=0.1
@@ -167,15 +172,6 @@ class Question(object):
 
         self.choices = None
 
-    def check_answer(self, answer):
-        """ Check 'answer' against the question
-            
-            Return True if the answer is correct
-        """
-
-        return answer == self.answer
-
-
 
 
 """ Actual quizzes """
@@ -207,8 +203,8 @@ class BaseQuiz(object):
         self.running = True
         self.quiz = None
 
+        self._answer = None
         self.question = None
-        self.answer = None
 
 
     def __str__(self):
@@ -234,20 +230,20 @@ class BaseQuiz(object):
             raise StateError("Quiz {} in unknown state!".format(self))
 
 
-    # Attributes
+    # UI properties
 
     @property
     def answer(self):
         """ Return the current answer to the question """
 
-        return None # Not implemented in BaseQuiz
+        return self._answer
 
 
     @answer.setter
-    def answer(self):
+    def answer(self, answer):
         """ Set the current answer to the question """
 
-        pass # Not implemented in BaseQuiz
+        self._answer = answer
 
 
     # Quiz commands
@@ -300,6 +296,24 @@ class BaseQuiz(object):
         self.display_question()
 
 
+    def accept_answer(self):
+        """ Accept the current answer to the problem """
+
+        # Create a user friendly version of the answer
+        if self.question.sort == 'multichoice':
+            correct_answer = self.question.choices[self.question.answer]
+        else:
+            correct_answer = self.question.answer
+
+        if self.question.answer == self.answer:
+            response = "Answer '{}' was correct!".format(correct_answer)
+        else:
+            response = "Wrong! The correct answer was '{}'!".format(
+                                                                correct_answer)
+
+        self.set_answer_response(response)
+
+
     # UI related stuff...
 
 
@@ -309,17 +323,16 @@ class BaseQuiz(object):
         raise NotImplementedError("BaseQuiz is only a template!")
 
 
-    def accept_answer(self):
-        """ Submit the current answer """
-
-        raise NotImplementedError("Base quiz is only a template!")
-
-
     def display_question(self):
         """ Display the current question """
 
         raise NotImplementedError("Base quiz is only a template!")
 
+
+    def set_answer_response(self, response):
+        """ Set the response to the current answer """
+
+        raise NotImplementedError("Base quiz is only a template!")
 
 
 # Quiz UI
@@ -337,8 +350,8 @@ class CLIQuiz(BaseQuiz):
           - Replace the question id with A/B/...
     """
 
-
-    """ CLI control functions """
+    
+    # CLI control functions
                
 
     def run(self):
@@ -362,10 +375,8 @@ class CLIQuiz(BaseQuiz):
                 # Get user input and continue
                 user_input = self.prompt("Answer")
                 if user_input != None:
-                    # Check states and continue accordingly
-                    if state == self.ANSWER:
-                        # Collect an answer
-                        self.answer = user_input
+                    # Collect an answer
+                    self.answer = user_input
             else:
                 raise NotImplementedError(
                           "{} does not support a state of {}".format(self,
@@ -394,8 +405,25 @@ class CLIQuiz(BaseQuiz):
 
         return result
 
+    
+    # UI properties
+ 
 
-    """ UI specific functions """
+    @property
+    def answer(self):
+        """ Return the current answer """
+
+        return self._answer
+
+
+    @answer.setter
+    def answer(self, value):
+        """ Set the current answer to 'value' """
+
+        self._answer = value
+
+
+    # UI specific functions
 
 
     def load_quiz(self):
@@ -415,18 +443,6 @@ class CLIQuiz(BaseQuiz):
             return None
 
 
-    def accept_answer(self):
-        """ Accept the current answer to the problem """
-
-        correct = self.question.check_answer(self.answer)
-
-        if correct:
-            print("Answer {} was correct!".format(self.answer))
-        else:
-            print("Wrong! The correct answer was {}".format(
-                                                       self.question.answer))
-
-
     def display_question(self):
         """ Display the question currently loaded """
 
@@ -444,12 +460,20 @@ class CLIQuiz(BaseQuiz):
             raise ValueError("Question sort '{}' not recognized!".format(sort))
 
 
+    def set_answer_response(self, response):
+        """ Print out the response to the answer """
+        print(response)
+
+
 class TkQuiz(tk.Frame, BaseQuiz):
     """ Tkinter Quizzer UI """
 
 
     def __init__(self, *args, **kargs):
         """ Initialise self """
+
+        # Initialise the quiz side of things
+        BaseQuiz.__init__(self, *args, **kargs)
 
         # Set up the Tk instance
         master = tk.Tk()
@@ -458,19 +482,14 @@ class TkQuiz(tk.Frame, BaseQuiz):
 
         self.pack()
 
-        # The quiz text variable
-        self.question_text = tk.StringVar()
-        self.question_text.set("No question")
+        # Create the answer string variable
+        self._answer = tk.StringVar()
 
-        # The result answer text variable
-        self.answer_text = tk.StringVar()
-        self.answer_text.set("")
+        # Create the next button's text variable
+        self.next_button_text = tk.StringVar()
 
+        # Create the ui
         self.create_ui()
-        self.pack_ui()
-
-        # Initialise the quiz side of things
-        BaseQuiz.__init__(self, *args, **kargs)
 
         self.new_quiz() # Start the ball rolling by getting a new quiz
 
@@ -483,46 +502,23 @@ class TkQuiz(tk.Frame, BaseQuiz):
     def create_ui(self):
         """ Create the quiz ui """
 
-        # Create the two UI frames
-        self.button_frame = tk.Frame(self)
-        self.question_frame = tk.Frame(self)
-
-        # Create the buttons in the button frame
-        self.cancel_button = ttk.Button(self.button_frame, text="Cancel",
+        # Create the buttons
+        # Button frame
+        button_frame = ttk.Frame(self)
+        button_frame.pack(side='bottom')
+        # Cancel button
+        cancel_button = ttk.Button(button_frame, text="Cancel",
                                         command=self.cancel_quiz)
-        self.next_button_text = tk.StringVar()
-        self.next_button_text.set("Accept")
-        self.accept_button = ttk.Button(self.button_frame,
+        cancel_button.pack(side='left')
+        # Accept button
+        accept_button = ttk.Button(button_frame,
                                         textvariable=self.next_button_text,
                                         command=self.accept)
+        self.next_button_text.set("Accept")
+        accept_button.pack()
 
-        # Create the text in the question frame
-        self.label = ttk.Label(self.question_frame,
-                              textvariable=self.question_text)
-
-        # Create answer selector
-        self.question_choices = None
-
-        # Create an answer response label
-        self.result = ttk.Label(self.question_frame,
-                               textvariable=self.answer_text)
-
-
-    def pack_ui(self):
-        """ Pack the quiz ui """
-
-        # Pack the frames
-        self.button_frame.pack(side="bottom")
-        self.question_frame.pack(side="top")
-
-        # Pack the buttons
-        self.cancel_button.pack(side="left")
-        self.accept_button.pack(side="right")
-
-        # Pack the question
-        self.label.pack(side='top')
-        # Pack the result prompt
-        self.result.pack(side='bottom')
+        # Placeholder question UI
+        self.question_ui = ttk.Frame(self)
 
 
     def accept(self):
@@ -530,12 +526,34 @@ class TkQuiz(tk.Frame, BaseQuiz):
 
             This either calls the accept_answer method or the next_question
             method, depending on the current value of self.next_button_text
+            It also inverts the current state of the button
         """
 
         if self.next_button_text.get() == "Accept":
             self.accept_answer()
+            self.next_button_text.set("Next")
         elif self.next_button_text.get() == "Next":
             self.next_question()
+            self.next_button_text.set("Accept")
+
+
+    # UI specific properties
+
+    @property
+    def answer(self):
+        """ Return the current answer """
+
+        if self.question.sort == 'prompt':
+            return self.question_choices.get().strip()
+        else:
+            return self._answer.get()
+
+
+    @answer.setter
+    def answer(self, answer):
+        """ Set the current answer to 'answer' """
+
+        self._answer.set(answer)
 
 
     """ UI specific shared methods """
@@ -558,70 +576,59 @@ class TkQuiz(tk.Frame, BaseQuiz):
         self.master.deiconify() # Recreate the main window
 
 
-    def accept_answer(self):
-        """ Submit the current answer """
-
-        # First, get the answer if required
-        if self.question.sort == 'prompt':
-            self.answer = self.question_choices.get().strip()
-
-        correct = self.question.check_answer(self.answer) # Check the answer
-
-        if correct == True:
-            self.answer_text.set("That was the correct answer!")
-        else:
-            correct_answer = self.question.answer
-            print('self.answer {}'.format(self.answer))
-            print('correct answer {}'.format(correct_answer))
-            self.answer_text.set("Wrong! The correct answer was {}".format(
-                                                              correct_answer))
-
-        # Change the button for moving on from the answer pane to get a new
-        # question
-        self.next_button_text.set("Next")
-
-
     def display_question(self):
         """ Display the current question
         
             Also make sure that the current button text is correct
         """
 
-        #TODO: Implement fully
+        # First, clear the current question ui
+        self.question_ui.destroy()
+        # Create a new frame for the question
+        self.question_ui = ttk.Frame(self)
 
-        # Clear the current answer response
-        self.answer_text.set("")
-
-        # Ask the question
-        self.question_text.set(self.question.question)
+        # Create the main question header
+        question = ttk.Label(self.question_ui,
+                             text=self.question.question)
+        question.pack(side='top')
 
         # Show the possible choices
-        # Destroy the current question setup
-        if self.question_choices != None:
-            self.question_choices.destroy()
-        # Setup a new UI depending on question type
-        if self.question.sort == 'prompt':
-            self.question_choices = ttk.Entry(self.question_frame)
-        elif self.question.sort == 'multichoice':
+        # Setup a new UI depending on question sort
+        sort = self.question.sort
+        if sort == 'prompt':
+            self.question_choices = ttk.Entry(self.question_ui)
+        elif sort == 'multichoice':
             # Create the choice roundbutton set
-            self.question_choices = ttk.Frame(self.question_frame)
+            self.question_choices = ttk.Frame(self.question_ui)
             for choice_id, choice in self.question.choices.items():
                 radio = ttk.Radiobutton(self.question_choices,
                                         text=choice,
-                                        variable=self.answer,
+                                        variable=self._answer,
                                         value=choice_id)
                 radio.pack()
         else:
-            raise ValueError()
+            raise ValueError("Unknown question sort {}!".format(sort))
 
-        self.question_choices.pack(side='top')
+        # Pack the UI components
+        self.question_choices.pack()
+        self.question_ui.pack(side='top')
 
-        self.next_button_text.set("Accept")
+
+    def set_answer_response(self, answer):
+        """ Set the current answer response """
+
+        self.question_ui.destroy()
+        self.question_ui = ttk.Label(self, text=answer)
+        self.question_ui.pack(side='top')
 
 
 
 if __name__ == "__main__":
 
-    quiz_ui = TkQuiz() # TODO: Add options to use one or the other
+    #TODO: Fix this hack
+    try:
+        quiz_ui = TkQuiz()
+    except tk._tkinter.TclError:
+        quiz_ui = CLIQuiz()
     quiz_ui.run() # Run the quiz
 
