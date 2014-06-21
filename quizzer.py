@@ -165,6 +165,8 @@ class Question(object):
         self.answer = answer
         self.sort = sort
 
+        self.choices = None
+
     def check_answer(self, answer):
         """ Check 'answer' against the question
             
@@ -232,6 +234,21 @@ class BaseQuiz(object):
             raise StateError("Quiz {} in unknown state!".format(self))
 
 
+    # Attributes
+
+    @property
+    def answer(self):
+        """ Return the current answer to the question """
+
+        return None # Not implemented in BaseQuiz
+
+
+    @answer.setter
+    def answer(self):
+        """ Set the current answer to the question """
+
+        pass # Not implemented in BaseQuiz
+
 
     # Quiz commands
 
@@ -283,7 +300,7 @@ class BaseQuiz(object):
         self.display_question()
 
 
-    """ UI related stuff... """
+    # UI related stuff...
 
 
     def load_quiz(self):
@@ -305,7 +322,7 @@ class BaseQuiz(object):
 
 
 
-""" Quiz UI """
+# Quiz UI
 
 
 class CLIQuiz(BaseQuiz):
@@ -445,6 +462,10 @@ class TkQuiz(tk.Frame, BaseQuiz):
         self.question_text = tk.StringVar()
         self.question_text.set("No question")
 
+        # The result answer text variable
+        self.answer_text = tk.StringVar()
+        self.answer_text.set("")
+
         self.create_ui()
         self.pack_ui()
 
@@ -476,10 +497,15 @@ class TkQuiz(tk.Frame, BaseQuiz):
                                         command=self.accept)
 
         # Create the text in the question frame
-        self.label = tk.Label(self.question_frame,
+        self.label = ttk.Label(self.question_frame,
                               textvariable=self.question_text)
-        # Create an answer form
-        self.text = tk.Entry(self.question_frame)
+
+        # Create answer selector
+        self.question_choices = None
+
+        # Create an answer response label
+        self.result = ttk.Label(self.question_frame,
+                               textvariable=self.answer_text)
 
 
     def pack_ui(self):
@@ -495,8 +521,8 @@ class TkQuiz(tk.Frame, BaseQuiz):
 
         # Pack the question
         self.label.pack(side='top')
-        # Pack the answer form
-        self.text.pack(side='bottom')
+        # Pack the result prompt
+        self.result.pack(side='bottom')
 
 
     def accept(self):
@@ -535,14 +561,20 @@ class TkQuiz(tk.Frame, BaseQuiz):
     def accept_answer(self):
         """ Submit the current answer """
 
-        self.answer = self.text.get().strip()
+        # First, get the answer if required
+        if self.question.sort == 'prompt':
+            self.answer = self.question_choices.get().strip()
 
         correct = self.question.check_answer(self.answer) # Check the answer
 
         if correct == True:
-            pass
+            self.answer_text.set("That was the correct answer!")
         else:
-            pass
+            correct_answer = self.question.answer
+            print('self.answer {}'.format(self.answer))
+            print('correct answer {}'.format(correct_answer))
+            self.answer_text.set("Wrong! The correct answer was {}".format(
+                                                              correct_answer))
 
         # Change the button for moving on from the answer pane to get a new
         # question
@@ -557,11 +589,32 @@ class TkQuiz(tk.Frame, BaseQuiz):
 
         #TODO: Implement fully
 
-        # Clear the entry form
-        for char in self.text.get().strip():
-            self.text.delete(0)
+        # Clear the current answer response
+        self.answer_text.set("")
 
+        # Ask the question
         self.question_text.set(self.question.question)
+
+        # Show the possible choices
+        # Destroy the current question setup
+        if self.question_choices != None:
+            self.question_choices.destroy()
+        # Setup a new UI depending on question type
+        if self.question.sort == 'prompt':
+            self.question_choices = ttk.Entry(self.question_frame)
+        elif self.question.sort == 'multichoice':
+            # Create the choice roundbutton set
+            self.question_choices = ttk.Frame(self.question_frame)
+            for choice_id, choice in self.question.choices.items():
+                radio = ttk.Radiobutton(self.question_choices,
+                                        text=choice,
+                                        variable=self.answer,
+                                        value=choice_id)
+                radio.pack()
+        else:
+            raise ValueError()
+
+        self.question_choices.pack(side='top')
 
         self.next_button_text.set("Accept")
 
