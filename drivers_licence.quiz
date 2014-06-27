@@ -51,3 +51,80 @@ What do police officers directing traffic overrule?: 4
     3: Road signs and traffic signals
     4: Road signs, traffic signals, and give way rules
 
+
+#
+# Flush median
+#
+
+What is a valid time for using the flush median?: 3
+    0: Pulling out of a driveway
+    1: Before turning right
+    2: Before turning right and when pulling out of a driveway
+    3: Overtaking
+    4: Overtaking, turning right, and coming out of a driveway
+
+
+#
+# Lanes
+#
+
+What lane should a driver normally be in?: 1
+    0: Does not matter which lane
+    1: Left lane
+    2: Right lane
+
+
+#
+# Following distances
+#
+
+When following, what distance should be kept between vehicles on a normal day?: 0
+    0: 2 seconds
+    1: 4 seconds
+    2: 160 metres
+    3: 300 metres
+
+When following, what distance should be kept between vehicles on a rainy day?: 1
+    0: 2 seconds
+    1: 4 seconds
+    2: 160 metres
+    3: 300 metres
+
+
+#
+# Passing
+#
+
+How many metres of clear road should be infront of a car that has just finished passing?: 100
+How many metres away from a railway crossing should a driver be before passing?: 60
+Are cars allowed to start passing on yellow lines (Yes/No)?: No
+Are cars allowed to finish passing on dashed yellow lines (Yes/No)?: Yes
+Are cars allowed to finish passing on yellow lines (Yes/No)?: No
+
+
+#
+# Indicating
+#
+
+How many seconds should a vehicle indicate before turning/merging/other?: 3
+
+
+#
+# Towing
+#
+
+What is the maximum weight of a trailer/vehicle combination, in kgs?: 4500
+What is the maximum speed for towing a motorcycle (km/h)?: 30
+What is the maximum speed when towing a trailer (km/h)?: 90
+What is the maximum speed when towing another vehicle with a strop (km/h)?: 50
+What is the maximum distance between a vehicle and it's trailer? (m): 4
+When following and towing a trailer, what distance should be kept between vehicles on a normal day?: 1
+    0: 2 seconds
+    1: 4 seconds
+    2: 160 metres
+    3: 300 metres
+
+#
+# Give way rules
+#
+
