@@ -56,12 +56,12 @@ What do police officers directing traffic overrule?: 4
 # Flush median
 #
 
-What is a valid time for using the flush median?: 3
-    0: Pulling out of a driveway
+What is a valid time for using the flush median?: 2
+    0: When turning onto a busy road with a flush median to wait for a chance to merge with the traffic
     1: Before turning right
-    2: Before turning right and when pulling out of a driveway
+    2: When turning right either into or out of the line of traffic
     3: Overtaking
-    4: Overtaking, turning right, and coming out of a driveway
+    4: Overtaking, and turning right either into or out of the line of traffic
 
 
 #
@@ -127,4 +127,30 @@ When following and towing a trailer, what distance should be kept between vehicl
 #
 # Give way rules
 #
+
+
+# Intersections with no signs
+At an X intersection, a blue car is going straight ahead. Opposite, a red car is going straight ahead. Who gives way?: 3
+    0: The blue car
+    1: The red car
+    2: The yellow car
+    3: Neither
+
+At an X intersection, a blue car is going straight ahead. Opposite, a red car is turning right. Who gives way?: 1
+    0: The blue car
+    1: The red car
+    2: The yellow car
+    3: Neither
+
+At an X intersection, a blue car is going left. Opposite, a red car is turning right. Who gives way?: 1
+    0: The blue car
+    1: The red car
+    2: The yellow car
+    3: Neither
+
+At an X intersection, a blue car is going right. Opposite, a red car is turning left. Who gives way?: 0
+    0: The blue car
+    1: The red car
+    2: The yellow car
+    3: Neither
 
