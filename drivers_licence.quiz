@@ -1,10 +1,13 @@
+################################################################################
 # Drivers licence test quiz
 #
 # Designed for my quizzer project
 # 
 # Author: Alastair Hughes
 # Contact: <hobbitalastair@gmail.com>
-# Date: 12-6-2014
+# Date: 9-7-2014
+################################################################################
+
 
 #
 # Flashing lights
@@ -124,33 +127,174 @@ When following and towing a trailer, what distance should be kept between vehicl
     2: 160 metres
     3: 300 metres
 
+
 #
 # Give way rules
 #
 
-
-# Intersections with no signs
-At an X intersection, a blue car is going straight ahead. Opposite, a red car is going straight ahead. Who gives way?: 3
+# X intersection with no signs
+# Red car opposite the blue car
+At a X intersection, a blue car is going straight ahead. Opposite, a red car is going straight ahead. Who gives way?: 3
     0: The blue car
     1: The red car
     2: The yellow car
     3: Neither
 
-At an X intersection, a blue car is going straight ahead. Opposite, a red car is turning right. Who gives way?: 1
+At a X intersection, a blue car is going straight ahead. Opposite, a red car is turning right. Who gives way?: 1
     0: The blue car
     1: The red car
     2: The yellow car
     3: Neither
 
-At an X intersection, a blue car is going left. Opposite, a red car is turning right. Who gives way?: 1
+At a X intersection, a blue car is turning right. Opposite, a red car is turning right. Who gives way?: 3
     0: The blue car
     1: The red car
     2: The yellow car
     3: Neither
 
-At an X intersection, a blue car is going right. Opposite, a red car is turning left. Who gives way?: 0
+At a X intersection, a blue car is going left. Opposite, a red car is turning right. Who gives way?: 1
     0: The blue car
     1: The red car
     2: The yellow car
     3: Neither
+
+At a X intersection, a blue car is going left. Opposite, a red car is going straight ahead. Who gives way?: 3
+    0: The blue car
+    1: The red car
+    2: The yellow car
+    3: Neither
+
+# Red car to the right of the blue car
+At a X intersection, a blue car is going straight ahead. To the right, a red car is going straight ahead. Who gives way?: 0
+    0: The blue car
+    1: The red car
+    2: The yellow car
+    3: Neither
+
+At a X intersection, a blue car is going straight ahead. To the right, a red car is turning right. Who gives way?: 1
+    0: The blue car
+    1: The red car
+    2: The yellow car
+    3: Neither
+
+At a X intersection, a blue car is turning right. To the right, a red car is turning right. Who gives way?: 0
+    0: The blue car
+    1: The red car
+    2: The yellow car
+    3: Neither
+
+At a X intersection, a blue car is going left. To the right, a red car is turning right. Who gives way?: 3
+    0: The blue car
+    1: The red car
+    2: The yellow car
+    3: Neither
+
+At a X intersection, a blue car is going left. To the right, a red car is going straight ahead. Who gives way?: 0
+    0: The blue car
+    1: The red car
+    2: The yellow car
+    3: Neither
+
+# Red car to the left of the blue car
+At a X intersection, a blue car is going straight ahead. To the left, a red car is going straight ahead. Who gives way?: 1
+    0: The blue car
+    1: The red car
+    2: The yellow car
+    3: Neither
+
+At a X intersection, a blue car is going straight ahead. To the left, a red car is turning right. Who gives way?: 1
+    0: The blue car
+    1: The red car
+    2: The yellow car
+    3: Neither
+
+At a X intersection, a blue car is turning right. To the left, a red car is turning right. Who gives way?: 1
+    0: The blue car
+    1: The red car
+    2: The yellow car
+    3: Neither
+
+At a X intersection, a blue car is going left. To the left, a red car is turning right. Who gives way?: 3
+    0: The blue car
+    1: The red car
+    2: The yellow car
+    3: Neither
+
+At a X intersection, a blue car is going left. To the left, a red car is going straight ahead. Who gives way?: 3
+    0: The blue car
+    1: The red car
+    2: The yellow car
+    3: Neither
+
+
+# T intersection with no signs
+# Blue car turning left
+At the base of a T intersection, a blue car is going left. To the left, a red car is going straight ahead. Who gives way?: 3
+    0: The blue car
+    1: The red car
+    2: The yellow car
+    3: Neither
+
+At the base of a T intersection, a blue car is going left. To the left, a red car is turning right. Who gives way?: 3
+    0: The blue car
+    1: The red car
+    2: The yellow car
+    3: Neither
+
+At the base of a T intersection, a blue car is going left. To the right, a red car is going straight ahead. Who gives way?: 0
+    0: The blue car
+    1: The red car
+    2: The yellow car
+    3: Neither
+
+At the base of a T intersection, a blue car is going left. To the right, a red car is turning left. Who gives way?: 3
+    0: The blue car
+    1: The red car
+    2: The yellow car
+    3: Neither
+
+# Blue car turning right
+At the base of a T intersection, a blue car is going right. To the left, a red car is going straight ahead. Who gives way?: 0
+    0: The blue car
+    1: The red car
+    2: The yellow car
+    3: Neither
+
+At the base of a T intersection, a blue car is going right. To the left, a red car is turning right. Who gives way?: 0
+    0: The blue car
+    1: The red car
+    2: The yellow car
+    3: Neither
+
+At the base of a T intersection, a blue car is going right. To the right, a red car is going straight ahead. Who gives way?: 0
+    0: The blue car
+    1: The red car
+    2: The yellow car
+    3: Neither
+
+At the base of a T intersection, a blue car is going right. To the right, a red car is turning left. Who gives way?: 3
+    0: The blue car
+    1: The red car
+    2: The yellow car
+    3: Neither
+
+#
+# Roundabouts
+# 
+
+Which direction do cars entering a roundabout give way to? (Right or Left): Right
+On a multilane roundabout, which lane gives way? (Inner, Outer, or Neither): Neither
+
+# Blue gives way, because blue is changing lanes
+A blue car is going round a multilane roundabout and needs to change lanes, but a red car is in the way. Who gives way? (Red or Blue): Blue
+
+
+#
+# Parking
+#
+
+When parking on a hill facing downhill, which way should the front wheels be facing (In or Out): In
+When parking on a hill facing uphill, which way should the front wheels be facing (In or Out): Out
+
+
 
