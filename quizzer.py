@@ -23,7 +23,7 @@
     - Framebuffer UI
 
     Author: Alastair Hughes
-    Contact: <hobbitalastair@gmail.com>
+    Contact: <hobbitalastair at yandex dot com>
 
     Changelog:
 
