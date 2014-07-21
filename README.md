@@ -14,18 +14,14 @@ The Tk interface relies on the python tkinter package, and the tk libraries.
 
 ## Contribution guidelines ##
 
-Following in the existing style is mandatory; where the style is not obvious raise an issue.
-I will welcome any good changes with open arms.
-
-Good changes are changes that improve what already exists by making it faster, simpler, and more reliable.
+- Stick to the existing style
+- Write clean code...
+- File a bug/enhancement request first, then write the code if I think it is a good idea :) Or you could just fork this...
 
 ### Quiz file format ###
 
 I will probably not bundle any more quizzes with this program. However, feel free to write your own quiz; the file format it pretty simple.
 
-Prompt questions with 1 written answer are in the format Question: Answer
-Multichoice questions are in the format Question: Answer ID, with following options indented 4 spaces in the format ID: Answer text
-
 ## Contacts ##
 
-Me! Raise an issue - I'll hopefully spot it.
+Raise an issue in github (https://github.com/hobbitalastair/Quizzer)
