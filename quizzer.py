@@ -148,6 +148,16 @@ class Quiz(object):
             TODO: Add semi-random selection...
         """
 
+        # Calculate the total weight
+        total_weight = 0
+        for question in self.questions:
+            total_weight.append(question.weight())
+        
+        rand_value = randint(0, total_weight)
+
+        while question.weight
+        
+
         return self.questions[randint(0, len(self.questions) - 1)]
 
 
@@ -172,6 +182,15 @@ class Question(object):
 
         self.choices = None
 
+        # Stats for this question...
+        self.wrong = 0
+        self.correct = 0
+
+
+    def weight(self, current_question):
+        """ Return an integer value - the weight of the current question """
+
+        pass
 
 
 """ Actual quizzes """
@@ -307,9 +326,11 @@ class BaseQuiz(object):
 
         if self.question.answer == self.answer:
             response = "Answer '{}' was correct!".format(correct_answer)
+            self.question.correct += 1
         else:
             response = "Wrong! The correct answer was '{}'!".format(
                                                                 correct_answer)
+            self.question.wrong += 1
 
         self.set_answer_response(response)
 
