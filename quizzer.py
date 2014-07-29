@@ -79,6 +79,8 @@ class Quiz(object):
     def __init__(self, quiz_file):
         """ Initialise self using quiz_file, and load the quiz """
 
+        self.total_questions = 0
+
         try:
             quiz = open(quiz_file)
         except FileNotFoundError:
@@ -148,17 +150,23 @@ class Quiz(object):
             TODO: Add semi-random selection...
         """
 
+        self.total_questions += 1
+
         # Calculate the total weight
         total_weight = 0
         for question in self.questions:
-            total_weight.append(question.weight())
+            total_weight += question.weight(self.total_questions)
         
-        rand_value = randint(0, total_weight)
+        rand_value = randint(0, int(total_weight))
 
-        while question.weight
-        
-
-        return self.questions[randint(0, len(self.questions) - 1)]
+        combined_weight = 0
+        for question in self.questions:
+            weight = question.weight(self.total_questions)
+            combined_weight += weight
+            if rand_value <= combined_weight:
+                return question
+            else:
+                combined_weight += weight
 
 
 class QuizException(Exception):
@@ -187,10 +195,10 @@ class Question(object):
         self.correct = 0
 
 
-    def weight(self, current_question):
+    def weight(self, total_question):
         """ Return an integer value - the weight of the current question """
 
-        pass
+        return 1 + (self.wrong - (self.correct / 2))
 
 
 """ Actual quizzes """
