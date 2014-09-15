@@ -1,3 +1,4 @@
+#!/bin/env python
 """ A quizzer/flashcard style Tkinter program in python
 
     Designed for my drivers licence practice ;)
@@ -15,7 +16,7 @@
     Features to add:
 
     - Randomization of the order of multichoice questions
-    - Psuedo randomization of questions
+    - Psuedo randomization of questions - done?
     - Images
     - Letting sets of possible answers being allocated seperatly from questions
     - Adding more question types
@@ -57,6 +58,7 @@
 
 VERSION=0.1
 
+# Try to import a tk quizzer
 try:
     from tkquiz import TkQuiz
 except ImportError:
@@ -64,7 +66,10 @@ except ImportError:
     # This is so that the program falls back to the CLI interface
     tkquiz = None
 
+# For CLI argument support
+import argparse
 
+# Quizzer stuff
 from basequiz import BaseQuiz, \
                      Quiz, \
                      Question, \
@@ -199,20 +204,35 @@ class CLIQuiz(BaseQuiz):
         print(response)
 
 
-if __name__ == "__main__":
+def cli(tk):
+    """ Handle the CLI interface to Quizzer """
 
-    #TODO: Fix this hack
+    parser = argparse.ArgumentParser(usage="quizzer application, written in python")
 
-    if tkquiz != None:
-        print("Trying to create a tkinter quiz!")
+    parser.add_argument("--interface", default="cli", help="One of tk, or cli")
+    parser.add_argument("--quiz", default=None, help="Quiz file to load")
+
+    args = parser.parse_args()
+
+    interface = args.interface
+
+    if interface == "tk":
+        if tk == None:
+            parser.error("tk cannot be imported!")
         try:
-            quiz_ui = TkQuiz()
+            quiz_ui = TkQuiz(args.quiz)
         except tk._tkinter.TclError:
             print("No X detected; falling back to a CLI quiz!")
-            quiz_ui = CLIQuiz()
+            interface = "cli"
+    if interface == "cli":
+        quiz_ui = CLIQuiz(args.quiz)
     else:
-        print("No tkinter installed; falling back to a CLI quiz!")
-        quiz_ui = CLIQuiz()
-    
+        parser.error("Unknown interface: {}".format(interface))
+
     quiz_ui.run()
+
+
+if __name__ == "__main__":
+    # Call the CLI function
+    cli(tkquiz)
 

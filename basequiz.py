@@ -178,12 +178,15 @@ class BaseQuiz(object):
         pass
 
 
-    def __init__(self):
+    def __init__(self, quiz=None):
         """ Initialise self """
 
         # Set the initial quiz state
         self.running = True
-        self.quiz = None
+        if quiz != None:
+            self.quiz = Quiz(quiz)
+        else:
+            self.quiz = None
 
         self._answer = None
         self.question = None
