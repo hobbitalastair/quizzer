@@ -7,6 +7,10 @@
 
 from random import randint
 
+import sys
+if sys.version_info.major < 3:
+    FileNotFoundError = IOError
+
 
 class Quiz(object):
     """ A quiz

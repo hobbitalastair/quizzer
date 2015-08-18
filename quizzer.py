@@ -20,8 +20,8 @@
     - Images
     - Letting sets of possible answers being allocated seperatly from questions
     - Adding more question types
-    - CLI argparsing
     - Framebuffer UI
+    - Coloured text support
 
     Author: Alastair Hughes
     Contact: <hobbitalastair at yandex dot com>
@@ -54,6 +54,10 @@
 
     Moved the tk quiz part to another file to allow avoiding tk
 
+    19-8-2015
+
+    Added a help function and misc bug fixes/cleanups.
+
 """
 
 VERSION=0.1
@@ -71,10 +75,7 @@ import sys
 if sys.version_info.major >= 3:
     get_input = input
 else:
-    print("Running on python 2 or less!")
     get_input = raw_input
-    FileNotFoundError = IOError
-
 
 # For CLI argument support
 import argparse
