@@ -241,12 +241,6 @@ class BaseQuiz(object):
             self.new_quiz()
 
 
-    def quiz_help(self):
-        """ Get help for the current state """
-
-        raise NotImplementedError("{} does not support getting help!".format(self))
-
-
     def new_quiz(self):
         """ Setup for a new quiz """
 

@@ -64,7 +64,7 @@ try:
 except ImportError:
     # Failed to import tk!
     # This is so that the program falls back to the CLI interface
-    tkquiz = None
+    TkQuiz = None
 
 # Try to correct python 3/2 differences
 import sys
@@ -174,6 +174,19 @@ class CLIQuiz(BaseQuiz):
     # UI specific functions
 
 
+    def quiz_help(self):
+        """ Print out the quiz help """
+        
+        print("""
+Oh dear! Obviously I need to improve the UI so that it is more intuitive...
+
+Commands:
+quit    - exit the quiz.
+cancel  - cancel the current quiz.
+help    - print this message.
+""")
+
+
     def load_quiz(self):
         """ Load a new quiz from the user """
 
@@ -243,5 +256,5 @@ def cli(tk):
 
 if __name__ == "__main__":
     # Call the CLI function
-    cli(tkquiz)
+    cli(TkQuiz)
 
