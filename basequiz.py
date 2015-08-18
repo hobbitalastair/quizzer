@@ -7,15 +7,6 @@
 
 from random import randint
 
-# Try to correct python 3/2 differences
-import sys
-if sys.version_info.major >= 3:
-    get_input = input
-else:
-    print("Running on python 2 or less!")
-    get_input = raw_input
-    FileNotFoundError = IOError
-
 
 class Quiz(object):
     """ A quiz

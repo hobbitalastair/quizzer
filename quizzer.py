@@ -1,4 +1,4 @@
-#!/bin/env python
+#!/usr/bin/env python
 """ A quizzer/flashcard style Tkinter program in python
 
     Designed for my drivers licence practice ;)
@@ -66,6 +66,16 @@ except ImportError:
     # This is so that the program falls back to the CLI interface
     tkquiz = None
 
+# Try to correct python 3/2 differences
+import sys
+if sys.version_info.major >= 3:
+    get_input = input
+else:
+    print("Running on python 2 or less!")
+    get_input = raw_input
+    FileNotFoundError = IOError
+
+
 # For CLI argument support
 import argparse
 
@@ -73,8 +83,7 @@ import argparse
 from basequiz import BaseQuiz, \
                      Quiz, \
                      Question, \
-                     QuizException, \
-                     get_input
+                     QuizException
 
 
 class CLIQuiz(BaseQuiz):
