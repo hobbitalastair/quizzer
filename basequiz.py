@@ -242,11 +242,9 @@ class BaseQuiz(object):
 
 
     def quiz_help(self):
-        """ Get help for the current state
-            Return a string of help for the current state
-        """
+        """ Get help for the current state """
 
-        return "Help for this state is not implemented"
+        raise NotImplementedError("{} does not support getting help!".format(self))
 
 
     def new_quiz(self):

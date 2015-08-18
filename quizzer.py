@@ -144,7 +144,7 @@ class CLIQuiz(BaseQuiz):
             self.quit()
         elif value.lower() == "help":
             # Get help
-            print(self.quiz_help)
+            self.quiz_help()
         elif value.lower() == "cancel":
             # Cancel!
             self.cancel_quiz()
