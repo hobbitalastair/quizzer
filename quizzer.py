@@ -221,13 +221,13 @@ Commands:
     def load_quiz(self):
         """ Load a new quiz from the user """
 
-        user_input = self.prompt("New quiz")
+        user_input = self.prompt(BOLD+"New quiz"+RESET)
 
         if user_input != None:
             try:
                 self.quiz = Quiz(user_input)
             except QuizException as error:
-                print("Quiz '{}' not loaded due to {}!".format(
+                print(("Quiz '{}' not loaded due to "+RED+"{}!"+RESET).format(
                                                user_input, error))
             else:
                 print("Quiz {} loaded".format(user_input))
