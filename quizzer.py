@@ -15,13 +15,15 @@
 
     Features to add:
 
-    - Randomization of the order of multichoice questions
+    - Randomising the question letters and orders so that each question has a
+      different letter each time, a different order, and the letters are always
+      ordered.
     - Psuedo randomization of questions - done?
     - Images
     - Letting sets of possible answers being allocated seperatly from questions
     - Adding more question types
     - Framebuffer UI
-    - Coloured text support
+    - Checking that the given answer is valid for multichoice questions
 
     Author: Alastair Hughes
     Contact: <hobbitalastair at yandex dot com>
@@ -58,6 +60,11 @@
 
     Added a help function and misc bug fixes/cleanups.
 
+    28-10-2015
+
+    Added some extra randomisation of the order of multichoice questions.
+    Added some colour to the CLI.
+
 """
 
 VERSION=0.1
@@ -77,6 +84,8 @@ if sys.version_info.major >= 3:
 else:
     get_input = raw_input
 
+from random import shuffle
+
 # For CLI argument support
 import argparse
 
@@ -85,6 +94,27 @@ from basequiz import BaseQuiz, \
                      Quiz, \
                      Question, \
                      QuizException
+
+# Define some colours (this is probably not portable...)
+RESET   = '\033[0m'
+BOLD    = '\033[1m'
+UNDER   = '\033[4m'
+REVERSE = '\033[7m'
+BLANK   = '\033[8m'
+RESET   = '\033[0m'
+GREY    = '\033[90m'
+RED     = '\033[91m'
+GREEN   = '\033[92m'
+YELLOW  = '\033[93m'
+BLUE    = '\033[94m'
+PINK    = '\033[95m'
+CYAN    = '\033[96m'
+WHITE   = '\033[97m'
+
+WRONG   = BOLD + RED
+RIGHT   = BOLD + GREEN
+HIGH    = CYAN
+PROMPT  = WHITE
 
 
 class CLIQuiz(BaseQuiz):
@@ -182,9 +212,9 @@ class CLIQuiz(BaseQuiz):
 Oh dear! Obviously I need to improve the UI so that it is more intuitive...
 
 Commands:
-quit    - exit the quiz.
-cancel  - cancel the current quiz.
-help    - print this message.
+"""+HIGH+"quit"+RESET+"""    - exit the quiz.
+"""+HIGH+"cancel"+RESET+"""  - cancel the current quiz.
+"""+HIGH+"help"+RESET+"""    - print this message.
 """)
 
 
@@ -211,20 +241,28 @@ help    - print this message.
         sort = self.question.sort
 
         if sort == 'prompt':
-            print(self.question.question)
+            print(PROMPT+self.question.question+RESET)
         elif sort == 'multichoice':
-            print(self.question.question)
-            pairs = ["{}: {}".format(choice, self.question.choices[choice])
+            print(PROMPT+self.question.question+RESET)
+            pairs = [HIGH + "{}:".format(choice) + RESET \
+                    + " {}".format(self.question.choices[choice])
                      for choice in self.question.choices]
+            shuffle(pairs)
             choices = "    \n".join(pairs)
             print(choices)
         else:
             raise ValueError("Question sort '{}' not recognized!".format(sort))
 
 
-    def set_answer_response(self, response):
+    def set_answer_response(self, correct_answer, correct):
         """ Print out the response to the answer """
-        print(response)
+
+        if correct:
+            print(("Answer '{}' was "+RIGHT+"correct!"+RESET).format(
+                        correct_answer))
+        else:
+            print((WRONG+"Wrong!"+RESET+" The correct answer was '{}'.").format(
+                correct_answer))
 
 
 def cli(tk):

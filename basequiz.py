@@ -277,15 +277,13 @@ class BaseQuiz(object):
         else:
             correct_answer = self.question.answer
 
-        if self.question.answer == self.answer:
-            response = "Answer '{}' was correct!".format(correct_answer)
+        correct = self.question.answer == self.answer
+        if correct:
             self.question.correct += 1
         else:
-            response = "Wrong! The correct answer was '{}'!".format(
-                                                                correct_answer)
             self.question.wrong += 1
 
-        self.set_answer_response(response)
+        self.set_answer_response(correct_answer, correct)
 
 
     # UI related stuff...
@@ -303,7 +301,7 @@ class BaseQuiz(object):
         raise NotImplementedError("Base quiz is only a template!")
 
 
-    def set_answer_response(self, response):
+    def set_answer_response(self, answer, correct):
         """ Set the response to the current answer """
 
         raise NotImplementedError("Base quiz is only a template!")

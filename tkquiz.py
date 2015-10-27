@@ -166,8 +166,13 @@ class TkQuiz(tk.Frame, BaseQuiz):
         self.question_ui.pack(side='top')
 
 
-    def set_answer_response(self, answer):
+    def set_answer_response(self, correct_answer, correct):
         """ Set the current answer response """
+
+        if correct:
+            answer = "Answer {} was correct!".format(correct_answer)
+        else:
+            answer = "Wrong! The correct answer was {}".format(correct_answer)
 
         self.question_ui.destroy()
         self.question_ui = ttk.Label(self, text=answer)
