@@ -1,0 +1,228 @@
+################################################################################
+# Database quiz
+#
+# Author: Alastair Hughes
+# Contact: <hobbitalastair at yandex dot com>
+# Date: 28-10-2015
+################################################################################
+
+
+#
+# DB definitions:
+#
+
+What does a DBMS provide tools for?: 1
+    0: Handling user acccess to a database
+    1: Definining, constructing, manipulating, and sharing a database
+    2: Managing an on-disk data structures
+    3: Controlling access to a database
+
+What design phases are there?: 2
+    0: Physical, logical, relational
+    1: General, specific, user
+    2: Requirements specification and analysis, conceptual design, logical design, physical design
+
+What does a "data model" hide?: 1
+    0: Implementation details like field length, data types
+    1: Storage and implementation details
+    2: Relationships and properties of objects
+
+What is a view?: 3
+    0: A subset of the data
+    1: A generated overview of the data
+    2: An ascii-art pictorial representation of the data
+    3: Extra data generated from the existing data
+
+What transaction properties are provided by a DBMS?: 0
+    0: Isolation and atomicity.
+    1: Generality and consistency
+    2: Spell checking and reinforcment
+    3: Constraint checking
+
+
+#
+# Users
+#
+
+# There are several types of users:
+# - Database administrators
+# - Database designers
+# - End users:
+#   - Casual end users
+#   - Naive or parametric end users
+#   - Sophisticated end users
+#   - Standalone users
+# - System analysts
+# - Application programmers
+# - Software engineers
+# - DBMS designers and implementers
+# - DBMS tool developers
+# - Operators and maintenance personnel
+
+What is a "naive user"?: 0
+    0: Users performing "canned transactions"
+    1: Users performing one-off queries using languages such as SQL
+    2: Casual home users
+    3: DBMS admins
+
+What tasks does a database administrator perform?: 2
+    0: Designing a database, and managing it
+    1: Designing queries for naive users
+    2: Managing hardware and authentication
+    3: Creating views and managing access to a database
+
+What tasks does a DBMS tool developer perform?: 1
+    0: Designing a database, and managing it
+    1: Design applications for interfacing with the database, ie SQLPlus
+    2: Create tools that leverage the database for storing data
+    3: Creating one-off queries using languages such as SQL
+
+
+#
+# Integrity constraints
+#
+
+What does a referential integrity constraint enforce?: 3
+    0: Basic rules from the chosen data model
+    1: Domain-specific rules like checking that grades are between A and G
+    2: That keys are unique in a relationship
+    3: That a record in one file must be related to some records in other files
+    4: Constraints specified about the data in the language of the data model
+
+What does a uniqueness constraint enforce?: 2
+    0: Basic rules from the chosen data model
+    1: Domain-specific rules like checking that grades are between A and G
+    2: That keys are unique in a relationship
+    3: That a record in one file must be related to some records in other files
+    4: Constraints specified about the data in the language of the data model
+
+What is a business rule?: 1
+    0: Basic rules from the chosen data model
+    1: Domain-specific rules like checking that grades are between A and G
+    2: That keys are unique in a relationship
+    3: That a record in one file must be related to some records in other files
+    4: Constraints specified about the data in the language of the data model
+
+What is an inherent rule?: 0
+    0: Basic rules from the chosen data model
+    1: Domain-specific rules like checking that grades are between A and G
+    2: That keys are unique in a relationship
+    3: That a record in one file must be related to some records in other files
+    4: Constraints specified about the data in the language of the data model
+
+What is a explicit constraint?: 4
+    0: Basic rules from the chosen data model
+    1: Domain-specific rules like checking that grades are between A and G
+    2: That keys are unique in a relationship
+    3: That a record in one file must be related to some records in other files
+    4: Constraints specified about the data in the language of the data model
+
+#
+# More constraints
+#
+
+What is a the definition of an invalid state?: 1
+    0: A database state which is broken
+    1: A database state which does not obey all integrity constraints
+    2: A state of an SQL statement which refers to a non-existent object
+    3: A state of an SQL statement which contains a syntax error
+
+What is a "transition constraint"?: 1
+    0: A state constraint
+    1: A constraint on state changes
+    2: A constraint on the type of data in the database
+
+What constraints can be violated by an insert operation?: 1
+    0: Domain, entity, referential
+    1: Domain, key, entity, referential
+    2: Domain, key, existiential, referential
+    3: Domain, key, referential
+    4: Referential, entity
+
+What constraints can be violated by a delete operation?: 4
+    0: Entity, referential
+    1: Key, entity, referential
+    2: Existiential, key
+    3: Domain, key
+    4: Referential
+
+What constraints can be violated by an update operation?: 1
+    0: Domain, entity, referential
+    1: Domain, key, entity, referential
+    2: Domain, key, existiential, referential
+    3: Domain, key, referential
+    4: Referential, entity
+
+
+#
+# Database models
+#
+
+A conceptual data model is DBMS specific (True/False)?: False
+An implementational data model is DBMS specific (True/False)?: True
+
+What data model type is ER?: 1
+    0: Implementational
+    1: Conceptual
+    2: Physical
+
+What is a schema construct?: 2
+    0: A constructed schema
+    1: A method used to construct a database
+    2: A specific part of the description of the database
+    3: A type of constraint
+
+What are the levels of the three-schema architecture?: 3
+    0: External, conceptual, and implementation
+    1: Relational, conceptual, and physical
+    2: Relational, generic, and low
+    3: External, conceptual, and internal
+    4: Physical, implementational, and external
+
+Can the external level contain more than one view (Yes/No)?: Yes
+
+#
+# Relation data models
+#
+
+Can there be different datatypes in one column in a relation (Yes/No)?: No
+Are tuples in a relation ordered (Yes/No)?: Yes
+Values in tuples are atomic (True/False).: True
+Does a NULL value have several meanings?: 1
+    0: Always
+    1: Yes, but dependent on context
+    2: No (a NULL means NULL!)
+
+Can a given tuple in a relation be intepreted as a predicate (Yes/No)?: Yes
+
+What is a superkey?: 0
+    0: A set of attributes that must be unique for all tuples in a relation
+    1: A minimal set of attributes that must be unique for all tuples in a relation
+    2: The key specified as the main key of a relation
+    3: A set of attributes in a relation not part of any key
+    4: One possible key
+
+What is a key?: 1
+    0: A set of attributes that must be unique for all tuples in a relation
+    1: A minimal set of attributes that must be unique for all tuples in a relation
+    2: The key specified as the main key of a relation
+    3: A set of attributes in a relation not part of any key
+    4: One possible key
+
+What is a primary key?: 2
+    0: A set of attributes that must be unique for all tuples in a relation
+    1: A minimal set of attributes that must be unique for all tuples in a relation
+    2: The key specified as the main key of a relation
+    3: A set of attributes in a relation not part of any key
+    4: One possible key
+
+What is a candidate key?: 4
+    0: A set of attributes that must be unique for all tuples in a relation
+    1: A minimal set of attributes that must be unique for all tuples in a relation
+    2: The key specified as the main key of a relation
+    3: A set of attributes in a relation not part of any key
+    4: One possible key
+
+Can the value of a given attribute be used to identify all other attributes in a relation if the value of the attribute is defined to be unique for all tuples in a relation (Yes/No)?: Yes
+
+
