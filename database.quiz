@@ -7,6 +7,19 @@
 ################################################################################
 
 
+# Remaining practice topics:
+# ER->Relational mapping
+# Relational->ER mapping
+# Functional dependencies
+# Normalization (1NF, 2NF, 3NF, BCNF)
+# ACID
+# Transaction scheduling
+# "grant" SQL review
+# Query optimization
+# Indexing types
+# Query trees
+
+
 #
 # DB definitions:
 #
@@ -224,5 +237,212 @@ What is a candidate key?: 4
     4: One possible key
 
 Can the value of a given attribute be used to identify all other attributes in a relation if the value of the attribute is defined to be unique for all tuples in a relation (Yes/No)?: Yes
+
+
+#
+# Relational algebra
+#
+
+What does the select operation do?: 1
+    0: Retrieve a specific column or columns from a relation
+    1: Pick out specific tuples based on a given condition
+    2: Join two relations together
+    3: Perform some operation on a table, ie counting the number of tuples in the table
+    4: Rename a table
+
+What does the project operation do?: 0
+    0: Retrieve a specific column or columns from a relation
+    1: Pick out specific tuples based on a given condition
+    2: Join two relations together
+    3: Perform some operation on a table, ie counting the number of tuples in the table
+    4: Rename a table
+
+What does the cartesian product operation do?: 2
+    0: Retrieve a specific column or columns from a relation
+    1: Pick out specific tuples based on a given condition
+    2: Join two relations together
+    3: Perform some operation on a table, ie counting the number of tuples in the table
+    4: Rename a table
+
+What do the aggregate functions do?: 2
+    0: Retrieve a specific column or columns from a relation
+    1: Pick out specific tuples based on a given condition
+    2: Join two relations together
+    3: Perform some operation on a table, ie counting the number of tuples in the table
+    4: Rename a table
+
+What symbol is used for select in relational algebra?: 0
+    0: Theta
+    1: Pi
+    2: Scripted F
+    3: Bow tie
+    4: Bow tie with open ends, ie '=><='
+    5: Kleen star, ie '*'
+
+What symbol is used for project in relational algebra?: 1
+    0: Theta
+    1: Pi
+    2: Scripted F
+    3: Bow tie
+    4: Bow tie with open ends, ie '=><='
+    5: Kleen star, ie '*'
+
+What symbol is used for aggregate functions in relational algebra?: 2
+    0: Theta
+    1: Pi
+    2: Scripted F
+    3: Bow tie
+    4: Bow tie with open ends, ie '=><='
+    5: Kleen star, ie '*'
+
+What symbol is used for join in relational algebra?: 3
+    0: Theta
+    1: Pi
+    2: Scripted F
+    3: Bow tie
+    4: Bow tie with open ends, ie '=><='
+    5: Kleen star, ie '*'
+
+What symbol is used for natural join in relational algebra?: 5
+    0: Theta
+    1: Pi
+    2: Scripted F
+    3: Bow tie
+    4: Bow tie with open ends, ie '=><='
+    5: Kleen star, ie '*'
+
+What does the rho (scripted P) symbol stand for in relational algebra?: 2
+    0: Project
+    1: Join
+    2: Rename
+    3: Select
+
+What is the requirements for "union compatiable" relations?: 0
+    0: Both relations have the same degree and the attributes are the same
+    1: Both relations have the same degree
+    2: All the attributes are the same across both relations
+    3: The cardinality is the same and the domain of the attributes is the same
+
+What are the join types?: 3
+    0: Join, equijoin, natural join (inner and outer variations)
+    1: Join, equijoin (inner, left, right, and outer variations)
+    2: Equijoin, natural join (inner, left, upside down, right, and outer variations)
+    3: Join, equijoin, natural join (inner, left, right, and outer variations)
+
+
+#
+# Cardinality vs degree...
+#
+
+What is the cardinality of a table?: 0
+    0: The number of tuples
+    1: The number of attributes
+    2: The number of values (tuples*attributes)
+
+What is the degree of a table?: 1
+    0: The number of tuples
+    1: The number of attributes
+    2: The number of values (tuples*attributes)
+
+
+#
+# ER schema!
+#
+
+What symbol is used for an entity?: 1
+    0: An oval
+    1: A box
+    2: A diamond
+    3: A line
+
+What symbol is used for an attribute?: 0
+    0: An oval
+    1: A box
+    2: A diamond
+    3: A line
+
+What symbol is used for an relationship?: 2
+    0: An oval
+    1: A box
+    2: A diamond
+    3: A line
+
+What is used to denote a key?: 1
+    0: An dotted oval
+    1: An underlined name
+    2: A double oval
+
+#TODO: Expand..
+
+
+#
+# Closures
+#.
+
+What is the closure of a set of functional dependencies?: 0
+    0: The set of all functional dependencies which can be inferred from the given functional dependencies
+    1: The minimal set of functional dependencies in the set
+    2: The set of attributes that can be inferred from the given functional dependencies
+    3: The minimal set of attributes that the functional dependencies determine
+
+What is the closure of a set of attributes?: 3
+    0: The set of all functional dependencies which can be inferred from the given attributes
+    1: The minimal set of functional dependencies which can be inferred from the given attributes
+    2: The set of attributes that can be inferred from the given attributes
+    3: The set of attributes that functionally depend on the given attributes
+
+What is a prime attribute?: 1
+    0: An attribute belonging to the primary key
+    1: An attribute in one of the candidate keys
+    2: An attribute not in any of the candidate keys
+
+What is a nonprime attribute?: 2
+    0: An attribute belonging to the primary key
+    1: An attribute in one of the candidate keys
+    2: An attribute not in any of the candidate keys
+
+
+#
+# Normal forms
+#
+
+What is the requirements for 1NF?: 0
+    0: That all attributes can contain only atomic values
+    1: That every nonprime attribute is not partially dependent on any key of R
+    2: Given all FD's of the form X->A, either X is a superkey or A is a prime attribute
+    3: Given all FD's of the form X->A, X is a superkey of A
+
+What is the requirements for 2NF?: 1
+    0: That all attributes can contain only atomic values
+    1: That every nonprime attribute is not partially dependent on any key of R
+    2: Given all FD's of the form X->A, either X is a superkey or A is a prime attribute
+    3: Given all FD's of the form X->A, X is a superkey of A
+
+What is the requirements for 3NF?: 2
+    0: That all attributes can contain only atomic values
+    1: That every nonprime attribute is not partially dependent on any key of R
+    2: Given all FD's of the form X->A, either X is a superkey or A is a prime attribute
+    3: Given all FD's of the form X->A, X is a superkey of A
+
+What is the requirements for BCNF?: 3
+    0: That all attributes can contain only atomic values
+    1: That every nonprime attribute is not partially dependent on any key of R
+    2: Given all FD's of the form X->A, either X is a superkey or A is a prime attribute
+    3: Given all FD's of the form X->A, X is a superkey of A
+
+What is the definition of "fully functionally dependent"?: 0
+    0: If, given a FD X->Y, the removal of any attribute from X means that the FD will no longer hold
+    1: If all functional dependencies mention the given FD
+
+
+#
+# Anomalies
+#
+
+What are the different types of anomalies?: 0
+    0: Update, insertion, deletion
+    1: Alien, foriegn, primary
+    2: Insertion, foriegn, referential
+    3: Primary, foriegn, deletion
 
 
