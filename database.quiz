@@ -10,13 +10,8 @@
 # Remaining practice topics:
 # ER->Relational mapping
 # Relational->ER mapping
-# Functional dependencies
 # Normalization (1NF, 2NF, 3NF, BCNF)
-# ACID
-# Transaction scheduling
-# "grant" SQL review
 # Query optimization
-# Indexing types
 # Query trees
 
 
@@ -406,6 +401,11 @@ What is a nonprime attribute?: 2
 # Normal forms
 #
 
+# 1NF is essentially that all attribute contain only atomic values
+# 2Nf is that no attribute can only partially depend on the primary key
+# 3NF is that no attribute can transitively depend on the primary key
+# BCNF is that ????
+
 What is the requirements for 1NF?: 0
     0: That all attributes can contain only atomic values
     1: That every nonprime attribute is not partially dependent on any key of R
@@ -444,5 +444,97 @@ What are the different types of anomalies?: 0
     1: Alien, foriegn, primary
     2: Insertion, foriegn, referential
     3: Primary, foriegn, deletion
+
+#
+# SQL notes
+#
+
+What needs to be added to the end of a grant statement to give a user cascade permissions?: 1
+    0: with cascade
+    1: with grant option
+    2: and cascade
+    3: with cascade permission
+
+Can 'unique' attributes be NULL (Yes/No)?: No
+
+
+#
+# ACID
+#
+
+What does ACID stand for?: 2
+    0: Atomicitiy, checkability, integrity, defendability
+    1: Actually crazy insertion/deletion
+    2: Atomicitiy, consistency, isolation, durability
+
+What does the 'consistency' part of ACID mean?: 3
+    0: No interference between transactions
+    1: The transaction is repeatable
+    2: Changes are persistent
+    3: That the database goes from one consistent state to another
+
+What does the 'integrity' part of ACID mean?: 0
+    0: No interference between transactions
+    1: The transaction is repeatable
+    2: Changes are persistent
+    3: That the database goes from one consistent state to another
+
+What does the 'durability' part of ACID mean?: 2
+    0: No interference between transactions
+    1: The transaction is repeatable
+    2: Changes are persistent
+    3: That the database goes from one consistent state to another
+
+
+#
+# Transaction scheduling
+#
+
+What is a conflict-serializable schedule?: 2
+    0: A schedule which cannot be serialized
+    1: A schedule that creates conflicts with other transactions if serialized
+    2: A schedule which can be serialized so that the order of conflicting transactions is preserved
+    3: A schedule which can be non-serial
+
+What is a serial schedule?: 0
+    0: A schedule where transactions happen strictly one after another
+    1: A schedule where events are pushed over a serial port
+    2: A schedule where events can overlap
+    3: A schedule where things cause other things to happen
+
+What is a serial schedule?: 2
+    0: A schedule where transactions happen strictly one after another
+    1: A schedule where events are pushed over a serial port
+    2: A schedule where events can overlap
+    3: A schedule where things cause other things to happen
+
+
+#
+# Indexing
+#
+
+
+What does bfr stand for?: 2
+    0: Block factor redux
+    1: Blocks for relation, ie the number of blocks in a relation
+    2: Blocking factor, ie the number of records per block
+
+What is a primary index?: 0
+    0: An index on the primary key of a relation created by sorting the file
+    1: An index on an attribute of a relation created by sorting the file
+    2: An additional index on some fields in the relation
+
+What is a clustering index?: 1
+    0: An index on the primary key of a relation created by sorting the file
+    1: An index on a non-superkey attribute of a relation created by sorting the file
+    2: An additional index on some fields in the relation
+
+What is a secondary index?: 2
+    0: An index on the primary key of a relation created by sorting the file
+    1: An index on an attribute of a relation created by sorting the file
+    2: An additional index on some fields in the relation
+
+A dense index has as many records as the cardinality of a relation (True/False)?: True
+A sparse index has as many records as the cardinality of a relation (True/False)?: False
 
 
